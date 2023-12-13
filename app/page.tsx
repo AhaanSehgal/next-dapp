@@ -7,7 +7,7 @@ const TriaConnectProvider = dynamic(
   () => import("@tria-sdk/authenticate"),
   { ssr: false }
 )
-import { signMessage, writeContract, readContract, send, sendNft, useContractWrite } from "@tria-sdk/connect"
+import { useTriaConnector, signMessage, writeContract, readContract, send, sendNft, useContractWrite } from "@tria-sdk/connect"
 // import { getDefaultWallets } from "@tria-sdk/authenticate"
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
@@ -24,8 +24,12 @@ import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+// import { authUrl } from '@/utils/config'
+const authUrl = "https://auth-tria.vercel.app"
 
 export default function Home() {
+
+  const { globalData } = useTriaConnector({ authUrl })
 
   const { chains, publicClient, webSocketPublicClient } = configureChains(
     [
@@ -65,7 +69,7 @@ export default function Home() {
       const res = await wallet.signMessage(message)
       console.log("Metamask signature res: ", res)
     } else if (localStorage.getItem("tria.wallet.store") !== null) {
-      const data = await signMessage({ message, chainName })
+      const data = await signMessage({ message, chainName }, undefined, authUrl)
       console.log('function returned data', data)
     }
   }
@@ -110,10 +114,10 @@ export default function Home() {
   return (
     <>
       {/* <WagmiConfig config={wagmiConfig}> */}
-        <Tria />
-        <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callSign}>Sign Message</button>
-        <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callWriteContract}>Write contract</button>
-        <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={write}>useContractWrite</button>
+      <Tria />
+      <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callSign}>Sign Message</button>
+      <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callWriteContract}>Write contract</button>
+      <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={write}>useContractWrite</button>
       {/* </WagmiConfig> */}
     </>
   )
