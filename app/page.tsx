@@ -26,10 +26,13 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 // import { authUrl } from '@/utils/config'
 const authUrl = "https://auth-tria.vercel.app"
+const walletUrl = "https://staging-tria-wallet.vercel.app"
+const socketUrl = "wss://staging.tria.so"
 
 export default function Home() {
 
-  const { globalData } = useTriaConnector({ authUrl })
+  const { globalData } = useTriaConnector({ authUrl, walletUrl })
+
 
   const { chains, publicClient, webSocketPublicClient } = configureChains(
     [
@@ -103,7 +106,7 @@ export default function Home() {
     } else if (localStorage.getItem("tria.wallet.store") !== null) {
       const data = await writeContract({
         chainName, contractDetails
-      })
+      }, undefined, authUrl, socketUrl)
       console.log('function returned data', data)
     }
   }
