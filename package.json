@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tria-sdk/connect": "^1.3.14",
+    "@metamask/eth-sig-util": "^7.0.1",
+    "@tria-sdk/authenticate": "^1.3.8",
+    "@tria-sdk/connect": "^1.4.1",
+    "@tria-sdk/connect-staging": "^1.3.18",
     "@tria-sdk/utils": "^0.0.7",
     "authenticate-test-2": "^1.0.25",
+    "ethers": "^5.7.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
     "wagmi": "^1.4.8"
   },
   "devDependencies": {
