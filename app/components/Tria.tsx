@@ -1,6 +1,7 @@
 //@ts-nocheck
 "use client"
 import dynamic from 'next/dynamic'
+import { useEffect, useState } from 'react'
 
 const Application = dynamic(
     () => import("@tria-sdk/authenticate"),
@@ -8,15 +9,27 @@ const Application = dynamic(
 )
 
 const Tria = () => {
+
+    const [defined, setDefined] = useState(false)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setDefined(true)
+        }
+    }, [])
+
     return (
-        <Application
-            logo="https://www.empireofsight.com/assets/images/logo-icon.svg"
-            dappName="Empire of Sight"
-            dappDomain={window?.parent?.origin}
-            primaryColor="#AAFF00"
-            defaultChain="FUSE"
-            supportedChains={["FUSE", "POLYGON"]}
-        />
+        <>
+            {defined &&
+                <Application
+                    logo="https://www.empireofsight.com/assets/images/logo-icon.svg"
+                    dappName="Empire of Sight"
+                    dappDomain={window?.parent?.origin}
+                    primaryColor="#AAFF00"
+                    defaultChain="FUSE"
+                    supportedChains={["FUSE", "POLYGON"]}
+                />}
+        </>
     )
 }
 
