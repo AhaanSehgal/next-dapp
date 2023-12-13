@@ -24,7 +24,7 @@ const Tria = () => {
                 <Application
                     logo="https://www.stackos.io/stackos-logo.svg"
                     dappName="Stack OS"
-                    dappDomain={window?.parent?.origin}
+                    dappDomain={"https://dapp-testing-nine.vercel.app"}
                     uiType={"yes"}
                     primaryColor="#AAFF00"
                     defaultChain="FUSE"
