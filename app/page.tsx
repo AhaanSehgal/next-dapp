@@ -4,11 +4,11 @@ import Image from 'next/image'
 import Tria from './components/Tria'
 import dynamic from 'next/dynamic'
 const TriaConnectProvider = dynamic(
-  () => import("authenticate-test-2"),
+  () => import("@tria-sdk/authenticate"),
   { ssr: false }
 )
 import { signMessage, writeContract, readContract, send, sendNft, useContractWrite } from "@tria-sdk/connect"
-import { getDefaultWallets } from "authenticate-test-2"
+// import { getDefaultWallets } from "@tria-sdk/authenticate"
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
   mainnet,
@@ -40,18 +40,18 @@ export default function Home() {
     [publicProvider()]
   );
 
-  const { connectors } = getDefaultWallets({
-    appName: "Customer App powered by Tria",
-    projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-    chains,
-  });
+  // const { connectors } = getDefaultWallets({
+  //   appName: "Customer App powered by Tria",
+  //   projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
+  //   chains,
+  // });
 
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-    webSocketPublicClient,
-  });
+  // const wagmiConfig = createConfig({
+  //   autoConnect: true,
+  //   connectors,
+  //   publicClient,
+  //   webSocketPublicClient,
+  // });
 
   const chainName = "POLYGON"
   const message = "Sign in with Tria"
@@ -109,12 +109,12 @@ export default function Home() {
 
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
+      {/* <WagmiConfig config={wagmiConfig}> */}
         <Tria />
         <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callSign}>Sign Message</button>
         <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callWriteContract}>Write contract</button>
         <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={write}>useContractWrite</button>
-      </WagmiConfig>
+      {/* </WagmiConfig> */}
     </>
   )
 }

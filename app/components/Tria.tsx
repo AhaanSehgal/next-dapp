@@ -1,19 +1,18 @@
 //@ts-nocheck
 "use client"
 import dynamic from 'next/dynamic'
-import "authenticate-test-2/dist/index.css"
+
 const Application = dynamic(
-    () => import("authenticate-test-2"),
+    () => import("@tria-sdk/authenticate"),
     { ssr: false }
 )
 
 const Tria = () => {
     return (
         <Application
-            logo="https://www.stackos.io/stackos-logo.svg"
-            dappName="Stack OS"
+            logo="https://www.empireofsight.com/assets/images/logo-icon.svg"
+            dappName="Empire of Sight"
             dappDomain={window?.parent?.origin}
-            uiType={"yes"}
             primaryColor="#AAFF00"
             defaultChain="FUSE"
             supportedChains={["FUSE", "POLYGON"]}
