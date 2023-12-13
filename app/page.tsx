@@ -61,7 +61,7 @@ export default function Home() {
     if (localStorage.getItem("wagmi.connected") == "true") {
       console.log("Metamask sign message")
       const { WalletController } = await import("@tria-sdk/utils")
-      const wallet = new WalletController({ baseUrl: "https://prod.tria.so", walletType: { embedded: false }, selectedChainName: chainName })
+      const wallet = new WalletController({ baseUrl: "https://staging.tria.so", walletType: { embedded: false }, selectedChainName: chainName })
       const res = await wallet.signMessage(message)
       console.log("Metamask signature res: ", res)
     } else if (localStorage.getItem("tria.wallet.store") !== null) {
@@ -93,7 +93,7 @@ export default function Home() {
     if (localStorage.getItem("wagmi.connected") == "true") {
       console.log("Metamask sign message")
       const { WalletController } = await import("@tria-sdk/utils")
-      const wallet = new WalletController({ baseUrl: "https://prod.tria.so", walletType: { embedded: false }, selectedChainName: chainName })
+      const wallet = new WalletController({ baseUrl: "https://staging.tria.so", walletType: { embedded: false }, selectedChainName: chainName })
       const res = await wallet.callContract(contractDetails)
       console.log("Metamask signature res: ", res)
     } else if (localStorage.getItem("tria.wallet.store") !== null) {
