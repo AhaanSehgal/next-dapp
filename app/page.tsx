@@ -7,7 +7,7 @@ const TriaConnectProvider = dynamic(
   () => import("@tria-sdk/authenticate"),
   { ssr: false }
 )
-import { useTriaConnector, signMessage, writeContract, readContract, send, sendNft, useContractWrite } from "@tria-sdk/connect"
+import { useTriaConnector, signMessage, writeContract, readContract, send, sendNft } from "@tria-sdk/connect-staging"
 // import { getDefaultWallets } from "@tria-sdk/authenticate"
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
@@ -24,10 +24,12 @@ import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+import { test } from '@/utils/data'
 // import { authUrl } from '@/utils/config'
 const authUrl = "https://auth-tria.vercel.app"
 const walletUrl = "https://staging-tria-wallet.vercel.app"
 const socketUrl = "wss://staging.tria.so"
+const environment = "testnet"
 
 export default function Home() {
 
@@ -64,55 +66,19 @@ export default function Home() {
   const message = "Sign in with Tria"
 
   const callSign = async () => {
-    // const { signMessage } = await import('@tria-sdk/connect');
-    if (localStorage.getItem("wagmi.connected") == "true") {
-      console.log("Metamask sign message")
-      const { WalletController } = await import("@tria-sdk/utils")
-      const wallet = new WalletController({ baseUrl: "https://staging.tria.so", walletType: { embedded: false }, selectedChainName: chainName })
-      const res = await wallet.signMessage(message)
-      console.log("Metamask signature res: ", res)
-    } else if (localStorage.getItem("tria.wallet.store") !== null) {
-      const data = await signMessage({ message, chainName }, undefined, authUrl)
-      console.log('function returned data', data)
-    }
-  }
-
-  const contractDetails = {
-    contractAddress: '0xd1fD14e3Cf4f96E63A1561681dc8765DF8f7Cf91',
-    abi: [
-      {
-        inputs: [
-          { internalType: 'uint256', name: '_tokenID', type: 'uint256' },
-          { internalType: 'address', name: '_claimer', type: 'address' },
-        ],
-        name: 'claimCoupon',
-        outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
-      },
-    ],
-    functionName: 'claimCoupon',
-    args: [1, '0xD243090e67788bc26968a7339680Fd0AE2b0b6A4'],
-    // value: 0.000001,
+    const data = await signMessage({ message, chainName }, undefined, authUrl, environment)
+    console.log('function returned data', data)
   }
 
   const callWriteContract = async () => {
-    if (localStorage.getItem("wagmi.connected") == "true") {
-      console.log("Metamask sign message")
-      const { WalletController } = await import("@tria-sdk/utils")
-      const wallet = new WalletController({ baseUrl: "https://staging.tria.so", walletType: { embedded: false }, selectedChainName: chainName })
-      const res = await wallet.callContract(contractDetails)
-      console.log("Metamask signature res: ", res)
-    } else if (localStorage.getItem("tria.wallet.store") !== null) {
-      const data = await writeContract({
-        chainName, contractDetails
-      }, undefined, authUrl, socketUrl)
-      console.log('function returned data', data)
-    }
+    const data = await writeContract({
+      chainName: test.chainName, contractDetails: test.contractDetails
+    }, undefined, authUrl, environment)
+    console.log('function returned data', data)
   }
 
-  const { data, write } = useContractWrite({ chainName, contractDetails })
-  console.log("useContractWrite", data)
+  // const { data, write } = useContractWrite({ chainName, contractDetails }, undefined, authUrl, socketUrl)
+  // console.log("useContractWrite", data)
 
   return (
     <>
@@ -120,7 +86,7 @@ export default function Home() {
       <Tria />
       <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callSign}>Sign Message</button>
       <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={callWriteContract}>Write contract</button>
-      <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={write}>useContractWrite</button>
+      {/* <button className=' top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md' onClick={write}>useContractWrite</button> */}
       {/* </WagmiConfig> */}
     </>
   )
