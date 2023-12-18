@@ -11,9 +11,9 @@
   "dependencies": {
     "@tria-sdk/authenticate": "1.4.1",
     "@tria-sdk/connect": "^1.4.8",
-    "@tria-sdk/connect-staging": "^1.4.10",
-    "@tria-sdk/utils": "^0.0.7",
-    "authenticate-test-2": "^1.0.26",
+    "@tria-sdk/connect-staging": "^1.0.10",
+    "@tria-sdk/utils": "^1.0.11",
+    "authenticate-test-2": "1.0.25",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",

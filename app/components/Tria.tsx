@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 
 const Application = dynamic(
-    () => import("@tria-sdk/authenticate"),
+    () => import("authenticate-test-2"),
     { ssr: false }
 )
 
