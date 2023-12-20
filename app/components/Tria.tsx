@@ -2,11 +2,13 @@
 "use client"
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
+import "authenticate-test-2/dist/index.css"
 
 const Application = dynamic(
     () => import("authenticate-test-2"),
     { ssr: false }
 )
+
 
 const Tria = () => {
 
@@ -28,6 +30,7 @@ const Tria = () => {
                     primaryColor="#AAFF00"
                     defaultChain="FUSE"
                     supportedChains={["FUSE", "POLYGON"]}
+                    uiType="yes"
                 />}
         </>
     )
