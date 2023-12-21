@@ -18,10 +18,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta
+        {/* <meta
           http-equiv="origin-trial"
           content="AlU4GUR1ZBasFEUCNe8USkx7GSokITQbNSdgFlU9Zrg6aP+ThjAbiDdKq0gXIdk/agcphCw4k/hxIBcSD4wilQ8AAABneyJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJmZWF0dXJlIjoiRGlzYWJsZVRoaXJkUGFydHlTdG9yYWdlUGFydGl0aW9uaW5nIiwiZXhwaXJ5IjoxNzI1NDA3OTk5fQ=="
+        /> */}
+
+
+        <meta
+          http-equiv="origin-trial"
+          content="AuMZ268iradts6HtLmV/wmJwq9ffMtGbCX1x1CIlQkpcMmcQ23bH0knJ9CPQqZGFraCmceV6pSn9s2rExg3megsAAACKeyJvcmlnaW4iOiJodHRwczovL2xlZ28tbmV4dC1kYXBwLnZlcmNlbC5hcHA6NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWV9"
         />
+
       </head>
       <body className={inter.className}>{children}</body>
     </html>
