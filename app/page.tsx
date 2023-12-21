@@ -12,8 +12,8 @@ import {
   encrypt,
   decrypt,
   useChainName,
-} from "@tria-sdk/connect-staging";
-// import { getDefaultWallets } from "authenticate-test-2"
+} from "@tria-sdk/connect";
+// import { getDefaultWallets } from "@tria-sdk/authenticate"
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
@@ -23,9 +23,11 @@ import {
   polygon,
   optimism,
   arbitrum,
-  base,
-  zora,
-  goerli,
+  fantom,
+  fuse,
+  bsc,
+  avalanche,
+  polygonMumbai,
 } from "wagmi/chains";
 
 import { publicProvider } from "wagmi/providers/public";
@@ -44,18 +46,16 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     polygon,
     optimism,
     arbitrum,
-    base,
-    zora,
-    ...(process.env.REACT_APP_ENABLE_TESTNETS === "true" ? [goerli] : []),
+    fantom,
+    fuse,
+    bsc,
+    avalanche,
+    polygonMumbai,
   ],
   [publicProvider()]
 );
 
 export const getDefaultWallets = ({ appName, projectId, chains }: any) => {
-  // Set up connectors
-  // if (!wagmiCore && !wagmiChains && !wagmi) {
-  //   await loadWagmiCore()
-  // }
   const connectors = [
     new CoinbaseWalletConnector({
       chains,
@@ -98,24 +98,30 @@ const wagmiConfig = createConfig({
   webSocketPublicClient,
 });
 
-const authUrl = "https://auth-tria.vercel.app";
-const walletUrl = "https://staging-tria-wallet.vercel.app";
-const socketUrl = "wss://staging.tria.so";
-const environment = "testnet";
-const apiUrl = "https://staging.tria.so";
+// const authUrl = "https://auth-tria.vercel.app";
+// const walletUrl = "https://staging-tria-wallet.vercel.app";
+// const socketUrl = "wss://staging.tria.so";
+// const environment = "testnet";
+// const apiUrl = "https://staging.tria.so";
+
+const authUrl = "https://auth.tria.so";
+const walletUrl = "https://wallet.tria.so";
+const socketUrl = "wss://prod.tria.so";
+const environment = "mainnet";
+const apiUrl = "https://prod.tria.so";
 
 export default function Home() {
   const { globalData } = useTriaConnector({ authUrl, walletUrl });
-  const { account } = useAccount()
-  const { chainName: selectedChainName } = useChainName()
+  // const { account } = useAccount()
+  // const { chainName: selectedChainName } = useChainName()
   const [encryptedData, setEncryptedData] = useState<any>();
 
   const chainName = "POLYGON";
   const message = "Sign in with Tria";
 
-  useEffect(() => {
-    console.log({ account, selectedChainName })
-  }, [account, selectedChainName])
+  // useEffect(() => {
+  //   console.log({ account, selectedChainName })
+  // }, [account, selectedChainName])
 
   const callSign = async () => {
     const { chainName, message } = testSignMessage;

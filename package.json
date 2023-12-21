@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tria-sdk/authenticate": "^1.4.16",
+    "@tria-sdk/connect": "^1.4.21",
     "@tria-sdk/connect-staging": "^1.4.40",
     "@tria-sdk/utils": "^1.0.37",
     "authenticate-test-2": "1.0.47",
