@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@metamask/eth-sig-util": "^7.0.1",
     "@tria-sdk/authenticate": "^1.4.16",
-    "@tria-sdk/connect": "^1.4.21",
+    "@tria-sdk/connect": "^1.4.24",
     "@tria-sdk/connect-staging": "^1.4.40",
     "@tria-sdk/utils": "^1.0.37",
     "authenticate-test-2": "1.0.47",
+    "ethers": "^5.7.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",

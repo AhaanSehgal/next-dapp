@@ -38,6 +38,10 @@ import {
   testSignMessage,
   sendNftData,
 } from "@/utils/data";
+import { ethers } from "ethers";
+import nacl from "tweetnacl"
+import naclUtil from "tweetnacl-util"
+import * as sigUtil from "@metamask/eth-sig-util"
 // import { authUrl } from '@/utils/config'
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
@@ -215,8 +219,10 @@ export default function Home() {
       authUrl,
       environment
     );
-    setEncryptedData(res?.data)
-    console.log("function returned data", res);
+    //@ts-ignore
+    setEncryptedData(res?.data as string)
+    //@ts-ignore
+    console.log("Encrypted data", res?.data);
   };
 
   const callDecrypt = async () => {
@@ -251,7 +257,7 @@ export default function Home() {
       authUrl,
       environment
     );
-    console.log("function returned data", res);
+    console.log("Decrypted data", res);
   };
 
   // const callSignMessage = async () => {
@@ -404,16 +410,53 @@ export default function Home() {
   //   console.log({ decryptedData })
   // }
 
-  // async function getEncryptionPublicKey(secretKey: string): Promise<string> {
-  //   try {
-  //     const skBuff = new Uint8Array(Buffer.from(secretKey, 'hex'));
-  //     const keyPair = nacl.box.keyPair.fromSecretKey(skBuff);
-  //     const publicKey = naclUtil.encodeBase64(keyPair.publicKey);
-  //     return publicKey;
-  //   } catch (e: any) {
-  //     throw e;
-  //   }
-  // }
+  const embeddedEncrypt = async () => {
+    const privateKeyWithPrefix = "0xd7daece1bb241bffacee5d5da99199f49279544debef6bd0f4c2b806c390a05a"
+    const privateKey = privateKeyWithPrefix.startsWith('0x')
+      ? privateKeyWithPrefix.slice(2)
+      : privateKeyWithPrefix;
+
+
+    // const address = "0x1a17Fc032e9e0500bc2C53a9c150dc353Da28018"
+    // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.blockpi.network/v1/rpc/public")
+    // const signer = new ethers.Wallet(privateKey, provider)
+    // const pubKey = await (signer.provider as ethers.providers.JsonRpcProvider).send("eth_getEncryptionPublicKey", [address])
+    const pubKey = await getEncryptionPublicKey(privateKey)
+    console.log({ pubKey })
+  }
+
+  const embeddedDecrypt = async () => {
+    const privateKey = "0xd7daece1bb241bffacee5d5da99199f49279544debef6bd0f4c2b806c390a05a"
+    const pKey = privateKey.startsWith('0x') ? privateKey.slice(2) : privateKey;
+
+    let ethEncryptedData: sigUtil.EthEncryptedData = {
+      ciphertext: "KiUWSO5AJ2pyMMMNV2kPzNy7wkRMBd0Upn3yOk86QZsv",
+      ephemPublicKey: "Y+9w+iHnRm0Mf7zr5r1HTBVLR2pbOXbK0YnXGSZRm2Q=",
+      nonce: "MAcPr7026iC40vutaTyEOq4RC6TqdhOF",
+      version: "x25519-xsalsa20-poly1305",
+    }; // JSON.parse(encryptedData);
+
+    const result = sigUtil.decrypt({
+      encryptedData: ethEncryptedData,
+      privateKey: pKey,
+    });
+
+    console.log({ result })
+  }
+
+  async function getEncryptionPublicKey(secretKey: string): Promise<string> {
+    try {
+      const sKey = secretKey.startsWith('0x')
+        ? secretKey.slice(2)
+        : secretKey;
+      const skBuff = new Uint8Array(Buffer.from(sKey, 'hex'));
+      const keyPair = nacl.box.keyPair.fromSecretKey(skBuff);
+      const publicKey = naclUtil.encodeBase64(keyPair.publicKey);
+      return publicKey;
+    } catch (e: any) {
+      throw e;
+    }
+  }
 
   /**
  *
@@ -485,12 +528,25 @@ export default function Home() {
         >
           Encrypt
         </button>
+
         <button
           className=" top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md"
           onClick={callDecrypt}
         >
           Decrypt
         </button>
+        {/* <button
+          className=" top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md"
+          onClick={embeddedEncrypt}
+        >
+          Embedded Encrypt
+        </button>
+        <button
+          className=" top-2 left-2 px-2 py-2 bg-green-500 text-white rounded-md"
+          onClick={embeddedDecrypt}
+        >
+          Embedded Decrypt
+        </button> */}
         <br />
         <br />
         <button
