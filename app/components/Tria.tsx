@@ -24,13 +24,13 @@ const Tria = () => {
         <>
             {defined &&
                 <Application
-                    logo="https://www.empireofsight.com/assets/images/logo-icon.svg"
-                    dappName="Empire of Sight"
-                    dappDomain={"https://empireofsight.com"}
+                    logo="https://www.stackos.io/stackos-logo.svg"
+                    dappName="Stack OS"
+                    dappDomain={"https://dapp-testing-nine.vercel.app"}
+                    uiType={"yes"}
                     primaryColor="#AAFF00"
                     defaultChain="FUSE"
                     supportedChains={["FUSE", "POLYGON"]}
-                    uiType="yes"
                 />}
         </>
     )
