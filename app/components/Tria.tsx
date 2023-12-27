@@ -23,15 +23,27 @@ const Tria = () => {
     return (
         <>
             {defined &&
-                <Application
-                    logo="https://www.stackos.io/stackos-logo.svg"
-                    dappName="Stack OS"
-                    dappDomain={"https://dapp-testing-nine.vercel.app"}
-                    uiType={"yes"}
-                    primaryColor="#AAFF00"
-                    defaultChain="FUSE"
-                    supportedChains={["FUSE", "POLYGON"]}
-                />}
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        zIndex: 89,
+                        height: 0,
+                        width: 0,
+                    }}
+                >
+                    <Application
+                        logo="https://www.stackos.io/stackos-logo.svg"
+                        dappName="Stack OS"
+                        dappDomain={"https://dapp-testing-nine.vercel.app"}
+                        uiType={"yes"}
+                        primaryColor="#AAFF00"
+                        defaultChain="FUSE"
+                        supportedChains={["FUSE", "POLYGON"]}
+                    />
+                </div>
+            }
         </>
     )
 }
