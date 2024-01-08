@@ -18,6 +18,8 @@ import {
   polygonMumbai,
 } from "wagmi/chains";
 
+import { WalletController } from "@tria-sdk/web-test";
+
 import { publicProvider } from "wagmi/providers/public";
 
 import { config } from "@/utils/config";

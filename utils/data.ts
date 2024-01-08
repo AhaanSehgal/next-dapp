@@ -61,21 +61,28 @@ export const testSignMessage = {
 };
 
 export const sendNftData = {
-  // chainName: "MUMBAI",
-  // recipientTriaName: "dev@tria",
-  // nftDetails: {
-  //   type: "ERC721",
-  //   tokenAddress: "0x7E3EE106c9F42Cf57411a0236cAb393F38605417",
-  //   tokenId: "338",
-  //   amount: 1,
-  // },
-
-  chainName: "FUSE",
+  chainName: "MUMBAI",
   recipientTriaName: "admin@tria",
   nftDetails: {
-    type: "ERC1155",
-    tokenAddress: "0xFfC6F3186985e963821D3E30Cdb2ec4c0bE110e5",
-    tokenId: "1",
+    type: "ERC721",
+    tokenAddress: "0x7E3EE106c9F42Cf57411a0236cAb393F38605417",
+    tokenId: "338",
     amount: 1,
   },
+  // chainName: "FUSE",
+  // recipientTriaName: "admin@tria",
+  // nftDetails: {
+  //   type: "ERC1155",
+  //   tokenAddress: "0xFfC6F3186985e963821D3E30Cdb2ec4c0bE110e5",
+  //   tokenId: "1",
+  //   amount: 1,
+  // },
+  // chainName: "ETH",
+  // recipientTriaName: "admin@tria",
+  // nftDetails: {
+  //   type: "ERC721",
+  //   tokenAddress: "0xed5af388653567af2f388e6224dc7c4b3241c544",
+  //   tokenId: "2537",
+  //   amount: 1,
+  // },
 };
